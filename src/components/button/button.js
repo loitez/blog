@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const ButtonContainer = ({ className, children, width, padding, ...props }) => {
   return (
-    <Link {...props} className={className}>
+    <button {...props} className={className}>
       {children}
-    </Link>
+    </button>
   );
 };
 
@@ -21,5 +20,6 @@ export const Button = styled(ButtonContainer)`
 
   &:hover {
     background-color: transparent;
+    cursor: pointer;
   }
 `;

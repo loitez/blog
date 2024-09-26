@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { forwardRef } from "react";
 
-const InputContainer = ({ className, width, ...props }) => {
-  return <input className={className} type="text" {...props} />;
-};
+const InputContainer = forwardRef(({ className, width, ...props }, ref) => {
+  return <input className={className} type="text" {...props} ref={ref} />;
+});
 
 export const Input = styled(InputContainer)`
   width: ${({ width = "100%" }) => width};
