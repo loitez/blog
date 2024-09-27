@@ -22,4 +22,10 @@ export const Button = styled(ButtonContainer)`
     background-color: transparent;
     cursor: pointer;
   }
+  &:disabled {
+    &:hover {
+      background-color: #e3e3e3;
+      cursor: not-allowed;
+    }
+  }
 `;
