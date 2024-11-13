@@ -31,7 +31,7 @@ const IconButton = styled.button`
   outline: none;
   border: none;
   cursor: pointer;
-`;
+`; /* TODO */
 
 const UserName = styled.div`
   font-weight: 700;
