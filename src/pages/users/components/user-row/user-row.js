@@ -1,24 +1,10 @@
-import { Icon } from "../../../../components";
+import { Icon, IconButton } from "../../../../components";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useServerRequest } from "../../../../hooks";
 
-const IconButton = styled.button`
-  font-size: 18px;
-  padding: 5px 10px;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  &:hover {
-    & div {
-      color: ${({ saveuser, disabled }) =>
-        saveuser && !disabled ? "#4e7dd5" : "#ccc"};
-      color: ${({ deleteuser }) => (deleteuser ? "#ca0000" : "")};
-    }
-  }
-`; /* TODO */
+/* TODO */
 
 const UserRowContainer = ({
   className,
@@ -61,14 +47,14 @@ const UserRowContainer = ({
         <IconButton
           title="Сохранить пользователя"
           onClick={() => onRoleSave(id, selectedRoleId)}
-          saveuser
+          saveitem
           disabled={isSaveButtonDisabled}
         >
           <Icon size="25px" id="fa-floppy-o" disabled={isSaveButtonDisabled} />
         </IconButton>
         <IconButton
           title="Удалить пользователя"
-          deleteuser
+          deleteitem
           onClick={onUserRemove}
         >
           <Icon size="25px" id="fa-trash-o" />

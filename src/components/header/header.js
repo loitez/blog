@@ -27,4 +27,5 @@ export const Header = styled(HeaderContainer)`
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
 `;

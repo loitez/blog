@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { Icon, Button } from "../../../../components";
+import { Icon, Button, IconButton } from "../../../../components";
 import { Link, useNavigate } from "react-router-dom";
 import { ROLE } from "../../../../constants";
 import {
@@ -24,15 +24,6 @@ const StyledIconLink = styled(Link)`
   border: none;
 `;
 
-const IconButton = styled.button`
-  font-size: 18px;
-  padding: 5px 10px;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  cursor: pointer;
-`; /* TODO */
-
 const UserName = styled.div`
   font-weight: 700;
 `;
@@ -44,6 +35,11 @@ const ControlPanelContainer = (className) => {
   const session = useSelector(selectUserSession);
   const dispatch = useDispatch();
 
+  const onLogout = () => {
+    dispatch(logout(session));
+    sessionStorage.removeItem("userData");
+  };
+
   return (
     <div className={className}>
       <RightAligned>
@@ -54,7 +50,7 @@ const ControlPanelContainer = (className) => {
         ) : (
           <>
             <UserName>{login}</UserName>
-            <IconButton onClick={() => dispatch(logout(session))} title="Выйти">
+            <IconButton onClick={onLogout} title="Выйти">
               <Icon size="20px" id="fa-sign-out" />
             </IconButton>
           </>
