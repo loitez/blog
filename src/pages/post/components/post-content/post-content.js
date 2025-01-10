@@ -23,6 +23,7 @@ const PostContentContainer = ({
             <Icon size="21px" id="fa-pencil-square-o" />
           </IconButton>
         }
+        postId={id}
       />
       <div className="post-text">{content}</div>
     </div>

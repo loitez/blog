@@ -33,7 +33,6 @@ const PostFormContainer = ({
         content: newContent,
       }),
     ).then(() => navigate(`/post/${id}`));
-    console.log(newImageUrl, newTitle, newContent);
   };
 
   return (
@@ -47,6 +46,7 @@ const PostFormContainer = ({
             <Icon size="21px" id="fa-floppy-o" />
           </IconButton>
         }
+        postId={id}
       />
       <div
         ref={contentRef}

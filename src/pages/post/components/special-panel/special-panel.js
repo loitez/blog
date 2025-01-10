@@ -1,7 +1,43 @@
 import styled from "styled-components";
 import { Icon, IconButton } from "../../../../components";
+import { useDispatch } from "react-redux";
+import {
+  CLOSE_MODAL,
+  openModal,
+  removePostAsync,
+  removeCommentAsync,
+  savePostAsync,
+} from "../../../../actions";
+import { useNavigate } from "react-router-dom";
+import { useServerRequest } from "../../../../hooks";
 
-const SpecialPanelContainer = ({ className, publishedAt, primaryButton }) => {
+const SpecialPanelContainer = ({
+  className,
+  publishedAt,
+  primaryButton,
+  postId,
+}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const requestServer = useServerRequest();
+
+  const onDeleteArticle = () => {
+    console.log("deleting");
+
+    dispatch(
+      openModal({
+        text: "Удалить статью?",
+        onConfirm: () => {
+          dispatch(removePostAsync(requestServer, postId)).then(() =>
+            navigate("/"),
+          );
+          dispatch(CLOSE_MODAL);
+        },
+        onCancel: () => dispatch(CLOSE_MODAL),
+      }),
+    );
+  };
+
   return (
     <div className={className}>
       <div className="published-at">
@@ -10,7 +46,7 @@ const SpecialPanelContainer = ({ className, publishedAt, primaryButton }) => {
       </div>
       <div>
         {primaryButton}
-        <IconButton title="Удалить статью" deleteitem>
+        <IconButton title="Удалить статью" deleteitem onClick={onDeleteArticle}>
           <Icon size="21px" id="fa-trash-o" />
         </IconButton>
       </div>
