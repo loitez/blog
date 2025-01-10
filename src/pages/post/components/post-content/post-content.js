@@ -1,29 +1,30 @@
 import styled from "styled-components";
 import { H2, Icon, IconButton } from "../../../../components";
+import { SpecialPanel } from "../special-panel/special-panel";
+import { useNavigate } from "react-router-dom";
 
 const PostContentContainer = ({
   className,
   post: { id, title, imageUrl, content, publishedAt },
 }) => {
+  const navigate = useNavigate();
+
   return (
     <div className={className}>
       <img src={imageUrl} alt={title} />
       <H2>{title}</H2>
-      <div className="special-panel">
-        <div className="published-at">
-          <Icon margin="0 10px 0 0" size="18px" id="fa-calendar-o" />
-          {publishedAt}
-        </div>
-        <div>
-          <IconButton title="Редактировать статью">
+      <SpecialPanel
+        publishedAt={publishedAt}
+        primaryButton={
+          <IconButton
+            title="Редактировать статью"
+            onClick={() => navigate(`/post/${id}/edit`)}
+          >
             <Icon size="21px" id="fa-pencil-square-o" />
           </IconButton>
-          <IconButton title="Удалить статью" deleteitem>
-            <Icon size="21px" id="fa-trash-o" />
-          </IconButton>
-        </div>
-      </div>
-      <div>{content}</div>
+        }
+      />
+      <div className="post-text">{content}</div>
     </div>
   );
 };
@@ -34,15 +35,7 @@ export const PostContent = styled(PostContentContainer)`
     float: left;
     margin: 0 20px 10px 0;
   }
-  & .special-panel {
-    margin-bottom: 20px;
-    font-size: 19px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  & .published-at {
-    display: flex;
-    align-items: center;
+  & .post-text {
+    white-space: pre-line;
   }
 `;
