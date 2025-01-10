@@ -24,7 +24,8 @@ const PostFormContainer = ({
     const newImageUrl = imageRef.current.value;
     const newTitle = titleRef.current.value;
     const newContent = sanitizeContent(contentRef.current.innerHTML);
-
+    console.log("on save");
+    console.log(newImageUrl, newTitle, newContent, id);
     dispatch(
       savePostAsync(requestServer, {
         id: id,
@@ -32,7 +33,7 @@ const PostFormContainer = ({
         title: newTitle,
         content: newContent,
       }),
-    ).then(() => navigate(`/post/${id}`));
+    ).then(({ id }) => navigate(`/post/${id}`));
   };
 
   return (
@@ -68,5 +69,9 @@ export const PostForm = styled(PostFormContainer)`
   }
   & .post-text {
     white-space: pre-line;
+    min-height: 80px;
+    border: 1px solid #000;
+    padding: 10px 15px;
+    border-radius: 15px;
   }
 `;

@@ -7,11 +7,13 @@ import { useMatch, useParams } from "react-router-dom";
 import { useServerRequest } from "../../hooks";
 import { loadPostAsync, RESET_POST_DATA } from "../../actions";
 import { selectPost } from "../../selectors";
+import { initialPostState } from "../../reducers";
 
 const PostContainer = ({ className }) => {
   const dispatch = useDispatch();
   const params = useParams();
   const isEditing = useMatch("/post/:id/edit");
+  const isCreating = useMatch("/post");
   const requestServer = useServerRequest();
   const post = useSelector(selectPost);
 
@@ -20,13 +22,16 @@ const PostContainer = ({ className }) => {
   }, [dispatch]);
 
   useEffect(() => {
+    if (isCreating) {
+      return;
+    }
     dispatch(loadPostAsync(requestServer, params.id));
-  }, [dispatch, params.id, requestServer]);
+  }, [dispatch, params.id, requestServer, isCreating]);
 
   return (
     <div className={className}>
-      {isEditing ? (
-        <PostForm post={post} />
+      {isEditing || isCreating ? (
+        <PostForm post={isCreating ? initialPostState : post} />
       ) : (
         <>
           <PostContent post={post} />
