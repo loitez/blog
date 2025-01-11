@@ -1,18 +1,13 @@
 import styled from "styled-components";
 import { Icon, IconButton } from "../../../../components";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  CLOSE_MODAL,
-  openModal,
-  removePostAsync,
-  removeCommentAsync,
-  savePostAsync,
-} from "../../../../actions";
+import { CLOSE_MODAL, openModal, removePostAsync } from "../../../../actions";
 import { useNavigate } from "react-router-dom";
 import { useServerRequest } from "../../../../hooks";
 import { IconCalendar } from "../../../../components/icon/types";
 import { selectUserRole } from "../../../../selectors";
 import { ROLE } from "../../../../constants";
+import { checkAccess } from "../../../../utils";
 
 const SpecialPanelContainer = ({
   className,
@@ -23,11 +18,11 @@ const SpecialPanelContainer = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const requestServer = useServerRequest();
-  const roleId = useSelector(selectUserRole);
+  const userRole = useSelector(selectUserRole);
+
+  const isAdmin = checkAccess([ROLE.ADMIN], userRole);
 
   const onDeleteArticle = () => {
-    console.log("deleting");
-
     dispatch(
       openModal({
         text: "Удалить статью?",
@@ -50,7 +45,7 @@ const SpecialPanelContainer = ({
           {publishedAt}
         </div>
       )}
-      {roleId === ROLE.ADMIN && (
+      {isAdmin && (
         <div className="buttons">
           {primaryButton}
           {publishedAt && (

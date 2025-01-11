@@ -9,6 +9,7 @@ import {
   selectUserSession,
 } from "../../../../selectors";
 import { logout } from "../../../../actions";
+import { checkAccess } from "../../../../utils";
 
 const RightAligned = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ const UserName = styled.div`
 
 const ControlPanelContainer = (className) => {
   const navigate = useNavigate();
-  const roleId = useSelector(selectUserRole);
+  const userRole = useSelector(selectUserRole);
   const login = useSelector(selectUserLogin);
   const session = useSelector(selectUserSession);
   const dispatch = useDispatch();
@@ -40,10 +41,13 @@ const ControlPanelContainer = (className) => {
     sessionStorage.removeItem("userData");
   };
 
+  const isAdmin = checkAccess([ROLE.ADMIN], userRole);
+  const isGuest = checkAccess([ROLE.GUEST], userRole);
+
   return (
     <div className={className}>
       <RightAligned>
-        {roleId === ROLE.GUEST ? (
+        {isGuest ? (
           <Button>
             <Link to="/login">Войти</Link>
           </Button>
@@ -60,12 +64,16 @@ const ControlPanelContainer = (className) => {
         <IconButton onClick={() => navigate(-1)} title="Назад">
           <Icon size="25px" id="fa-caret-left" />
         </IconButton>
-        <StyledIconLink to="/post" title="Создать статью">
-          <Icon size="20px" id="fa-file-text-o" />
-        </StyledIconLink>
-        <StyledIconLink to="/users" title="Все пользователи">
-          <Icon size="20px" id="fa-users" />
-        </StyledIconLink>
+        {isAdmin && (
+          <>
+            <StyledIconLink to="/post" title="Создать статью">
+              <Icon size="20px" id="fa-file-text-o" />
+            </StyledIconLink>
+            <StyledIconLink to="/users" title="Все пользователи">
+              <Icon size="20px" id="fa-users" />
+            </StyledIconLink>
+          </>
+        )}
       </RightAligned>
     </div>
   );

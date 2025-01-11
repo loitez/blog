@@ -4,36 +4,45 @@ import { addCommentAsync, logout } from "../../../../actions";
 import { Icon, IconButton } from "../../../../components";
 import { Comment } from "./components";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserId } from "../../../../selectors";
+import { selectUserId, selectUserRole } from "../../../../selectors";
 import { useServerRequest } from "../../../../hooks";
+import { checkAccess } from "../../../../utils";
+import { ROLE } from "../../../../constants";
 
 const CommentsContainer = ({ className, comments, postId }) => {
   const [newComment, setNewComment] = useState("");
+  const userRole = useSelector(selectUserRole);
   const userId = useSelector(selectUserId);
   const dispatch = useDispatch();
   const requestServer = useServerRequest();
 
+  const isGuest = checkAccess([ROLE.GUEST], userRole);
+
   const onNewCommentAdd = (userId, postId, content) => {
+    console.log(userId);
     dispatch(addCommentAsync(requestServer, userId, postId, content));
     setNewComment("");
   };
 
   return (
     <div className={className}>
-      <div className="new-comment">
-        <textarea
-          name="comment"
-          value={newComment}
-          placeholder="Комментарий..."
-          onChange={({ target }) => setNewComment(target.value)}
-        ></textarea>
-        <IconButton
-          title="Добавить комментарий"
-          onClick={() => onNewCommentAdd(userId, postId, newComment)}
-        >
-          <Icon size="20px" id="fa-paper-plane-o" />
-        </IconButton>
-      </div>
+      {!isGuest && (
+        <div className="new-comment">
+          <textarea
+            name="comment"
+            value={newComment}
+            placeholder="Комментарий..."
+            onChange={({ target }) => setNewComment(target.value)}
+          ></textarea>
+          <IconButton
+            title="Добавить комментарий"
+            onClick={() => onNewCommentAdd(userId, postId, newComment)}
+          >
+            <Icon size="20px" id="fa-paper-plane-o" />
+          </IconButton>
+        </div>
+      )}
+
       <div className={comments}>
         {comments.map(({ id, author, content, publishedAt }) => (
           <Comment
@@ -54,6 +63,7 @@ export const Comments = styled(CommentsContainer)`
   max-width: 550px;
   width: 100%;
   margin: 0 auto;
+
   & .new-comment {
     display: flex;
     align-items: flex-start;

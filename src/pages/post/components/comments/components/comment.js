@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import { Icon, IconButton } from "../../../../../components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   CLOSE_MODAL,
   openModal,
   removeCommentAsync,
 } from "../../../../../actions";
 import { useServerRequest } from "../../../../../hooks";
+import { checkAccess } from "../../../../../utils";
+import { ROLE } from "../../../../../constants";
+import { selectUserRole } from "../../../../../selectors";
 
 const CommentContainer = ({
   className,
@@ -18,6 +21,10 @@ const CommentContainer = ({
 }) => {
   const dispatch = useDispatch();
   const requestServer = useServerRequest();
+
+  const userRole = useSelector(selectUserRole);
+  const isAdmin = checkAccess([ROLE.ADMIN], userRole);
+  const isModerator = checkAccess([ROLE.MODERATOR], userRole);
 
   const onCommentRemove = (commentId, postId) => {
     dispatch(
@@ -47,13 +54,15 @@ const CommentContainer = ({
         </div>
         <div className="comment-text">{content}</div>
       </div>
-      <IconButton
-        title="Удалить комментарий"
-        deleteitem
-        onClick={() => onCommentRemove(id, postId)}
-      >
-        <Icon size="20px" id="fa-trash-o" />
-      </IconButton>
+      {(isAdmin || isModerator) && (
+        <IconButton
+          title="Удалить комментарий"
+          deleteitem
+          onClick={() => onCommentRemove(id, postId)}
+        >
+          <Icon size="20px" id="fa-trash-o" />
+        </IconButton>
+      )}
     </div>
   );
 };

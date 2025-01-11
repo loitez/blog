@@ -6,9 +6,10 @@ import { Comments, PostContent, PostForm } from "./components";
 import { useMatch, useParams } from "react-router-dom";
 import { useServerRequest } from "../../hooks";
 import { loadPostAsync, RESET_POST_DATA } from "../../actions";
-import { selectPost } from "../../selectors";
+import { selectPost, selectUserRole } from "../../selectors";
 import { initialPostState } from "../../reducers";
 import { ROLE } from "../../constants";
+import { checkAccess } from "../../utils";
 
 const PostContainer = ({ className }) => {
   const dispatch = useDispatch();
