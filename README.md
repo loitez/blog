@@ -4,16 +4,20 @@
 
 ## Скрипты для запуска
 
+### `npm i`
+
+Установка всех необходимых зависимостей.
+
 ### `npm start`
 
 Запускает проект в режиме разработчика. \
 Откройте [http://localhost:3000](http://localhost:3000) для просмотра в браузере.
 
-### `npm run build`
-
-Запускает сборку проекта для продакшена и кладет ее в папку `build`.\
-
 Больше информации про [деплой](https://facebook.github.io/create-react-app/docs/deployment).
+
+### `npx json-server db.json --port 3001`
+
+Далее необходимо запустить JSON Server, порт 3001.
 
 ## Описание ролей
 ### Администратор
@@ -53,6 +57,14 @@ __Пароль__: blog
 
 Доступный функционал:
 * чтение статей
+
+## Используемые технологии
+* React, React Redux, Redux Thunk
+* JSON Server 
+* React Hook Form, Yup 
+* React Router
+* Styled Components
+* ESLint, Prettier
 
 
 ## Больше
