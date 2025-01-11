@@ -36,6 +36,9 @@ export const PostContent = styled(PostContentContainer)`
   & img {
     float: left;
     margin: 0 20px 10px 0;
+    width: 280px;
+    height: 150px;
+    object-fit: cover;
   }
   & .post-text {
     white-space: pre-line;
