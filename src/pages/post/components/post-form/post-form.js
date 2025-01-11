@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import { H2, Icon, IconButton, Input } from "../../../../components";
+import { Content, H2, Icon, IconButton, Input } from "../../../../components";
 import { SpecialPanel } from "../special-panel/special-panel";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { sanitizeContent } from "./utils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useServerRequest } from "../../../../hooks";
 import { savePostAsync } from "../../../../actions";
 import { useNavigate } from "react-router-dom";
+import { selectUserRole } from "../../../../selectors";
+import { ROLE } from "../../../../constants";
 
 const PostFormContainer = ({
   className,
@@ -19,6 +21,15 @@ const PostFormContainer = ({
   const imageRef = useRef(null);
   const titleRef = useRef(null);
   const contentRef = useRef(null);
+  const roleId = useSelector(selectUserRole);
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (roleId !== ROLE.ADMIN) {
+      setErrorMessage("Доступ запрещен");
+    }
+  }, []);
 
   const onSave = () => {
     const newImageUrl = imageRef.current.value;
@@ -38,25 +49,31 @@ const PostFormContainer = ({
 
   return (
     <div className={className}>
-      <Input ref={imageRef} defaultValue={imageUrl} placeholder="Изображение" />
-      <Input ref={titleRef} defaultValue={title} placeholder="Заголовок" />
-      <SpecialPanel
-        publishedAt={publishedAt}
-        primaryButton={
-          <IconButton title="Сохранить статью" onClick={onSave}>
-            <Icon size="21px" id="fa-floppy-o" />
-          </IconButton>
-        }
-        postId={id}
-      />
-      <div
-        ref={contentRef}
-        contentEditable={true}
-        suppressContentEditableWarning={true}
-        className="post-text"
-      >
-        {content}
-      </div>
+      <Content error={errorMessage}>
+        <Input
+          ref={imageRef}
+          defaultValue={imageUrl}
+          placeholder="Изображение"
+        />
+        <Input ref={titleRef} defaultValue={title} placeholder="Заголовок" />
+        <SpecialPanel
+          publishedAt={publishedAt}
+          primaryButton={
+            <IconButton title="Сохранить статью" onClick={onSave}>
+              <Icon size="21px" id="fa-floppy-o" />
+            </IconButton>
+          }
+          postId={id}
+        />
+        <div
+          ref={contentRef}
+          contentEditable={true}
+          suppressContentEditableWarning={true}
+          className="post-text"
+        >
+          {content}
+        </div>
+      </Content>
     </div>
   );
 };

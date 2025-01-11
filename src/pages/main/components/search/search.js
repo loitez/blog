@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { Icon, Input } from "../../../../components";
 
-const SearchContainer = ({ className, searchPhrase, onChange }) => {
+const SearchContainer = ({
+  className,
+  searchPhrase,
+  setShouldSearch,
+  onChange,
+}) => {
   return (
     <div className={className}>
       <Input value={searchPhrase} placeholder="Поиск..." onChange={onChange} />
@@ -26,5 +31,10 @@ export const Search = styled(SearchContainer)`
   & .icon-wrapper {
     position: absolute;
     right: 5px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
   }
 `;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Icon, IconButton } from "../../../../components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   CLOSE_MODAL,
   openModal,
@@ -11,6 +11,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useServerRequest } from "../../../../hooks";
 import { IconCalendar } from "../../../../components/icon/types";
+import { selectUserRole } from "../../../../selectors";
+import { ROLE } from "../../../../constants";
 
 const SpecialPanelContainer = ({
   className,
@@ -21,6 +23,7 @@ const SpecialPanelContainer = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const requestServer = useServerRequest();
+  const roleId = useSelector(selectUserRole);
 
   const onDeleteArticle = () => {
     console.log("deleting");
@@ -47,19 +50,20 @@ const SpecialPanelContainer = ({
           {publishedAt}
         </div>
       )}
-
-      <div className="buttons">
-        {primaryButton}
-        {publishedAt && (
-          <IconButton
-            title="Удалить статью"
-            deleteitem
-            onClick={onDeleteArticle}
-          >
-            <Icon size="21px" id="fa-trash-o" />
-          </IconButton>
-        )}
-      </div>
+      {roleId === ROLE.ADMIN && (
+        <div className="buttons">
+          {primaryButton}
+          {publishedAt && (
+            <IconButton
+              title="Удалить статью"
+              deleteitem
+              onClick={onDeleteArticle}
+            >
+              <Icon size="21px" id="fa-trash-o" />
+            </IconButton>
+          )}
+        </div>
+      )}
     </div>
   );
 };

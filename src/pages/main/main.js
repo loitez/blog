@@ -34,7 +34,10 @@ const MainContainer = ({ className }) => {
         PAGINATION_LIMIT,
         searchPhrase,
       );
-      const lastPageNumber = getLastPage(data.res, PAGINATION_LIMIT);
+      const lastPageNumber =
+        postsPerPage.length < PAGINATION_LIMIT
+          ? page
+          : getLastPage(data.res, PAGINATION_LIMIT);
       setPosts(postsPerPage);
       setLastPage(lastPageNumber);
     });
@@ -57,9 +60,9 @@ const MainContainer = ({ className }) => {
           ))}
         </div>
       ) : (
-        <div>Ничего не найдено</div>
+        <div className="no-post-found">Статьи не найдены</div>
       )}
-      {lastPage > 1 && (
+      {lastPage > 1 && posts.length > 0 && (
         <Pagination page={page} lastPage={lastPage} setPage={setPage} />
       )}
     </div>
@@ -74,5 +77,8 @@ export const Main = styled(MainContainer)`
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     margin-bottom: 40px;
+  }
+  & .no-post-found {
+    text-align: center;
   }
 `;
