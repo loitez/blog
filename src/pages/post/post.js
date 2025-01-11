@@ -17,8 +17,6 @@ const PostContainer = ({ className }) => {
   const requestServer = useServerRequest();
   const post = useSelector(selectPost);
 
-  const [isLoading, setIsLoading] = useState(false);
-
   useLayoutEffect(() => {
     dispatch(RESET_POST_DATA);
   }, [dispatch]);
