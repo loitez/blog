@@ -39,6 +39,9 @@ export const PostCard = styled(PostCardContainer)`
   justify-content: flex-start;
   & img {
     display: block;
+    width: 280px;
+    height: 150px;
+    object-fit: cover;
   }
   & .post-info {
     padding: 7px 5px;
