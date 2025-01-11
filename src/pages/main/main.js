@@ -1,14 +1,12 @@
 import styled from "styled-components";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useServerRequest } from "../../hooks";
-import { H2 } from "../../components";
 import { Pagination, PostCard, Search } from "./components";
 import { PAGINATION_LIMIT } from "../../constants";
 import { debounce, getLastPage, getPostsPerPage } from "./utils";
 
 const MainContainer = ({ className }) => {
   const [posts, setPosts] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const requestServer = useServerRequest();
@@ -25,7 +23,6 @@ const MainContainer = ({ className }) => {
   useEffect(() => {
     Promise.all([requestServer("fetchPosts", searchPhrase)]).then(([data]) => {
       if (data.error) {
-        setErrorMessage(data.error);
         return;
       }
       const postsPerPage = getPostsPerPage(
@@ -41,6 +38,7 @@ const MainContainer = ({ className }) => {
       setPosts(postsPerPage);
       setLastPage(lastPageNumber);
     });
+    // eslint-disable-next-line
   }, [requestServer, page, shouldSearch]);
 
   return (

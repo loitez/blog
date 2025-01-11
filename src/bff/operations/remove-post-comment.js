@@ -1,10 +1,4 @@
-import {
-  addComment,
-  deleteComment,
-  getComments,
-  getPost,
-  getUsers,
-} from "../api";
+import { deleteComment, getComments, getPost, getUsers } from "../api";
 import { ROLE } from "../constants";
 import { sessions } from "../sessions";
 

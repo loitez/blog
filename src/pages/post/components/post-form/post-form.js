@@ -1,20 +1,12 @@
 import styled from "styled-components";
-import {
-  PrivateContent,
-  H2,
-  Icon,
-  IconButton,
-  Input,
-} from "../../../../components";
+import { Icon, IconButton, Input } from "../../../../components";
 import { SpecialPanel } from "../special-panel/special-panel";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { sanitizeContent } from "./utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useServerRequest } from "../../../../hooks";
 import { savePostAsync } from "../../../../actions";
 import { useNavigate } from "react-router-dom";
-import { selectUserRole } from "../../../../selectors";
-import { ROLE } from "../../../../constants";
 
 const PostFormContainer = ({
   className,
@@ -27,7 +19,6 @@ const PostFormContainer = ({
   const imageRef = useRef(null);
   const titleRef = useRef(null);
   const contentRef = useRef(null);
-  const roleId = useSelector(selectUserRole);
 
   const onSave = () => {
     const newImageUrl = imageRef.current.value;

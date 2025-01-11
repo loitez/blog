@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { IconCalendar } from "../../../../components/icon/types";
 import { Icon } from "../../../../components";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 const PostCardContainer = ({
   className,

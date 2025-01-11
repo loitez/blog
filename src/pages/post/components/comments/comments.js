@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { addCommentAsync, logout } from "../../../../actions";
+import { addCommentAsync } from "../../../../actions";
 import { Icon, IconButton } from "../../../../components";
 import { Comment } from "./components";
 import { useDispatch, useSelector } from "react-redux";
