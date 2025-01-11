@@ -8,7 +8,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "./actions";
 
 const Page = styled.div`
-  padding: 120px 80px;
+  margin-top: 120px;
+  padding: 40px 80px;
 `;
 
 const AppColumn = styled.div`
