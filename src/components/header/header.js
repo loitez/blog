@@ -28,4 +28,5 @@ export const Header = styled(HeaderContainer)`
   align-items: center;
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
   background-color: #fff;
+  z-index: 10;
 `;

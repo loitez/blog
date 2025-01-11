@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { H2 } from "../../components";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Comments, PostContent, PostForm } from "./components";
 import { useMatch, useParams } from "react-router-dom";
@@ -16,6 +16,8 @@ const PostContainer = ({ className }) => {
   const isCreating = useMatch("/post");
   const requestServer = useServerRequest();
   const post = useSelector(selectPost);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useLayoutEffect(() => {
     dispatch(RESET_POST_DATA);

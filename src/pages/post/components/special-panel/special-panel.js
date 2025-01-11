@@ -10,6 +10,7 @@ import {
 } from "../../../../actions";
 import { useNavigate } from "react-router-dom";
 import { useServerRequest } from "../../../../hooks";
+import { IconCalendar } from "../../../../components/icon/types";
 
 const SpecialPanelContainer = ({
   className,
@@ -42,7 +43,7 @@ const SpecialPanelContainer = ({
     <div className={className}>
       {publishedAt && (
         <div className="published-at">
-          <Icon margin="0 10px 0 0" size="18px" id="fa-calendar-o" />
+          <IconCalendar />
           {publishedAt}
         </div>
       )}

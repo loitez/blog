@@ -46,4 +46,5 @@ export const Footer = styled(FooterContainer)`
   padding: 20px 40px;
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
   font-weight: 700;
+  z-index: 10;
 `;
