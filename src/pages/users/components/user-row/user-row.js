@@ -1,9 +1,9 @@
+import PropTypes from "prop-types";
 import { Icon, IconButton } from "../../../../components";
 import styled from "styled-components";
 import { useState } from "react";
 import { useServerRequest } from "../../../../hooks";
-
-/* TODO */
+import { PROP_TYPE } from "../../../../constants";
 
 const UserRowContainer = ({
   className,
@@ -46,14 +46,14 @@ const UserRowContainer = ({
         <IconButton
           title="Сохранить пользователя"
           onClick={() => onRoleSave(id, selectedRoleId)}
-          saveitem
+          saveitem="saveitem"
           disabled={isSaveButtonDisabled}
         >
           <Icon size="25px" id="fa-floppy-o" disabled={isSaveButtonDisabled} />
         </IconButton>
         <IconButton
           title="Удалить пользователя"
-          deleteitem
+          deleteitem="deleteitem"
           onClick={onUserRemove}
         >
           <Icon size="25px" id="fa-trash-o" />
@@ -81,3 +81,12 @@ export const UserRow = styled(UserRowContainer)`
     padding: 3px;
   }
 `;
+
+UserRow.propTypes = {
+  id: PropTypes.string.isRequired,
+  login: PropTypes.string.isRequired,
+  registeredAt: PropTypes.string.isRequired,
+  roleId: PROP_TYPE.ROLE_ID,
+  roles: PropTypes.arrayOf(PROP_TYPE.ROLE),
+  onUserRemove: PropTypes.func.isRequired,
+};

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Icon, IconButton } from "../../../../components";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,7 +52,7 @@ const SpecialPanelContainer = ({
           {publishedAt && (
             <IconButton
               title="Удалить статью"
-              deleteitem
+              deleteitem="deleteitem"
               onClick={onDeleteArticle}
             >
               <Icon size="21px" id="fa-trash-o" />
@@ -77,3 +78,9 @@ export const SpecialPanel = styled(SpecialPanelContainer)`
     margin-left: auto;
   }
 `;
+
+SpecialPanel.propTypes = {
+  publishedAt: PropTypes.string.isRequired,
+  primaryButton: PropTypes.node.isRequired,
+  postId: PropTypes.string.isRequired,
+};

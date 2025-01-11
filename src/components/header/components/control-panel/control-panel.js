@@ -23,13 +23,16 @@ const StyledIconLink = styled(Link)`
   background-color: transparent;
   outline: none;
   border: none;
+  &:hover > div {
+    color: #ccc;
+  }
 `;
 
 const UserName = styled.div`
   font-weight: 700;
 `;
 
-const ControlPanelContainer = (className) => {
+const ControlPanelContainer = ({ className }) => {
   const navigate = useNavigate();
   const userRole = useSelector(selectUserRole);
   const login = useSelector(selectUserLogin);

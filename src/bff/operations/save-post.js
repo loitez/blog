@@ -5,8 +5,6 @@ import { sessions } from "../sessions";
 export const savePost = async (hash, newPostData) => {
   const accessRoles = [ROLE.ADMIN];
 
-  console.log(newPostData);
-
   const access = await sessions.access(hash, accessRoles);
 
   if (!access) {

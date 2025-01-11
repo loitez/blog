@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useServerRequest } from "../../../../hooks";
 import { savePostAsync } from "../../../../actions";
 import { useNavigate } from "react-router-dom";
+import { PROP_TYPE } from "../../../../constants";
 
 const PostFormContainer = ({
   className,
@@ -24,8 +25,6 @@ const PostFormContainer = ({
     const newImageUrl = imageRef.current.value;
     const newTitle = titleRef.current.value;
     const newContent = sanitizeContent(contentRef.current.innerHTML);
-    console.log("on save");
-    console.log(newImageUrl, newTitle, newContent, id);
     dispatch(
       savePostAsync(requestServer, {
         id: id,
@@ -43,7 +42,11 @@ const PostFormContainer = ({
       <SpecialPanel
         publishedAt={publishedAt}
         primaryButton={
-          <IconButton title="Сохранить статью" onClick={onSave}>
+          <IconButton
+            title="Сохранить статью"
+            onClick={onSave}
+            saveitem="saveitem"
+          >
             <Icon size="21px" id="fa-floppy-o" />
           </IconButton>
         }
@@ -75,3 +78,7 @@ export const PostForm = styled(PostFormContainer)`
     border-radius: 15px;
   }
 `;
+
+PostForm.propTypes = {
+  post: PROP_TYPE.POST.isRequired,
+};

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { IconCalendar } from "../../../../components/icon/types";
 import { Icon } from "../../../../components";
@@ -65,3 +66,11 @@ export const PostCard = styled(PostCardContainer)`
     font-size: 15px;
   }
 `;
+
+PostCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  publishedAt: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
+  commentsCount: PropTypes.number.isRequired,
+};

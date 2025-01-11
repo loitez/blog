@@ -5,6 +5,5 @@ export const loadPostAsync = (requestServer, postId) => (dispatch) =>
     if (postData.res) {
       dispatch(setPostData(postData.res));
     }
-    console.log(postData);
     return postData;
   });

@@ -12,6 +12,7 @@ export const IconButton = styled.button`
       color: ${({ saveitem, disabled }) =>
         saveitem && !disabled ? "#4e7dd5" : "#ccc"};
       color: ${({ deleteitem }) => (deleteitem ? "#ca0000" : "")};
+      cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
     }
   }
 `;

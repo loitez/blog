@@ -1,12 +1,8 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Icon, Input } from "../../../../components";
 
-const SearchContainer = ({
-  className,
-  searchPhrase,
-  setShouldSearch,
-  onChange,
-}) => {
+const SearchContainer = ({ className, searchPhrase, onChange }) => {
   return (
     <div className={className}>
       <Input value={searchPhrase} placeholder="Поиск..." onChange={onChange} />
@@ -38,3 +34,8 @@ export const Search = styled(SearchContainer)`
     cursor: pointer;
   }
 `;
+
+Search.propTypes = {
+  searchPhrase: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

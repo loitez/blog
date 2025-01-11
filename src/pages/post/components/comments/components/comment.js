@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Icon, IconButton } from "../../../../../components";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,7 +58,7 @@ const CommentContainer = ({
       {(isAdmin || isModerator) && (
         <IconButton
           title="Удалить комментарий"
-          deleteitem
+          deleteitem="deleteitem"
           onClick={() => onCommentRemove(id, postId)}
         >
           <Icon size="20px" id="fa-trash-o" />
@@ -90,3 +91,11 @@ export const Comment = styled(CommentContainer)`
     }
   }
 `;
+
+Comment.propTypes = {
+  postId: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  author: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  publishedAt: PropTypes.string.isRequired,
+};
