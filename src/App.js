@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
-import { Header, Footer, Modal } from "./components";
+import { Header, Footer, Modal, Error } from "./components";
 import { Authorization, Main, Registration, Users } from "./pages";
 import { Post } from "./pages";
 import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "./actions";
+import { ERROR } from "./constants";
 
 const Page = styled.div`
   margin-top: 120px;
@@ -51,7 +52,10 @@ export const Blog = () => {
           <Route path="/post" element={<Post />}></Route>
           <Route path="/post/:id" element={<Post />}></Route>
           <Route path="/post/:id/edit" element={<Post />}></Route>
-          <Route path="*" element={<div>Ошибка</div>}></Route>
+          <Route
+            path="*"
+            element={<Error error={ERROR.PAGE_NOT_EXIST} />}
+          ></Route>
         </Routes>
       </Page>
       <Footer></Footer>

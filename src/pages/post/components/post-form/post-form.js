@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { Content, H2, Icon, IconButton, Input } from "../../../../components";
+import {
+  PrivateContent,
+  H2,
+  Icon,
+  IconButton,
+  Input,
+} from "../../../../components";
 import { SpecialPanel } from "../special-panel/special-panel";
 import { useEffect, useRef, useState } from "react";
 import { sanitizeContent } from "./utils";
@@ -23,14 +29,6 @@ const PostFormContainer = ({
   const contentRef = useRef(null);
   const roleId = useSelector(selectUserRole);
 
-  const [errorMessage, setErrorMessage] = useState("");
-
-  useEffect(() => {
-    if (roleId !== ROLE.ADMIN) {
-      setErrorMessage("Доступ запрещен");
-    }
-  }, []);
-
   const onSave = () => {
     const newImageUrl = imageRef.current.value;
     const newTitle = titleRef.current.value;
@@ -49,31 +47,25 @@ const PostFormContainer = ({
 
   return (
     <div className={className}>
-      <Content error={errorMessage}>
-        <Input
-          ref={imageRef}
-          defaultValue={imageUrl}
-          placeholder="Изображение"
-        />
-        <Input ref={titleRef} defaultValue={title} placeholder="Заголовок" />
-        <SpecialPanel
-          publishedAt={publishedAt}
-          primaryButton={
-            <IconButton title="Сохранить статью" onClick={onSave}>
-              <Icon size="21px" id="fa-floppy-o" />
-            </IconButton>
-          }
-          postId={id}
-        />
-        <div
-          ref={contentRef}
-          contentEditable={true}
-          suppressContentEditableWarning={true}
-          className="post-text"
-        >
-          {content}
-        </div>
-      </Content>
+      <Input ref={imageRef} defaultValue={imageUrl} placeholder="Изображение" />
+      <Input ref={titleRef} defaultValue={title} placeholder="Заголовок" />
+      <SpecialPanel
+        publishedAt={publishedAt}
+        primaryButton={
+          <IconButton title="Сохранить статью" onClick={onSave}>
+            <Icon size="21px" id="fa-floppy-o" />
+          </IconButton>
+        }
+        postId={id}
+      />
+      <div
+        ref={contentRef}
+        contentEditable={true}
+        suppressContentEditableWarning={true}
+        className="post-text"
+      >
+        {content}
+      </div>
     </div>
   );
 };

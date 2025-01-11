@@ -1,8 +1,21 @@
 import { transformPost } from "../transformers";
 
 export const getPost = (postId) =>
-  fetch(`http://localhost:3001/posts/${postId}`).then((loadedPost) =>
-    loadedPost
-      .json()
-      .then((loadedPost) => loadedPost && transformPost(loadedPost)),
-  );
+  fetch(`http://localhost:3001/posts/${postId}`)
+    .then((res) => {
+      if (res.ok) {
+        return res;
+      }
+
+      const error =
+        res.status === 404
+          ? "Такой страницы не существует"
+          : "Что-то пошло не так. Попробуйте еще раз позднее";
+
+      return Promise.reject(error);
+    })
+    .then((loadedPost) =>
+      loadedPost
+        .json()
+        .then((loadedPost) => loadedPost && transformPost(loadedPost)),
+    );
