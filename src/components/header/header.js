@@ -20,7 +20,7 @@ export const Header = styled(HeaderContainer)`
   //height: 120px;
   position: fixed;
   top: 0;
-  width: 1000px;
+  width: 1040px;
   padding: 20px 40px;
   height: 120px;
   display: flex;
