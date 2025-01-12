@@ -3,21 +3,21 @@
     {
       "id": "001",
       "login": "admin",
-      "password": "blog",
+      "password": "blog1234",
       "registered_at": "2050-09-22 18:29",
       "role_id": 0
     },
     {
       "id": "add6",
       "login": "moderator",
-      "password": "blog",
+      "password": "blog1234",
       "registered_at": "2051-01-31 17:25",
       "role_id": 1
     },
     {
       "id": "4e47",
       "login": "reader",
-      "password": "blog",
+      "password": "blog1234",
       "registered_at": "2055-10-20 17:33",
       "role_id": 2
     }
